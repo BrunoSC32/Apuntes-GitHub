@@ -392,3 +392,69 @@ Repositorio de apuntes sobre Git.
 - Flujo:
   - Nacen desde `main`.
   - Luego se fusionan tanto en `main` como en `develop`.
+
+---
+
+# Diapositiva 6: Integracion y Flujo de Trabajo Sin Pull Requests
+
+---
+
+## 1. Comandos de integracion y sincronizacion
+
+### `git merge`
+- Sirve para fusionar ramas en una sola.
+- Es recomendable usar `--no-ff` para evitar perder el historial visual de las ramas.
+- Este flag fuerza la creacion de un commit de fusion, incluso si luego la rama se borra.
+
+### `git fetch`
+- Permite verificar si existen cambios en la rama remota y en sus ramas hijas.
+- Te avisa antes de descargar nada.
+
+### `git pull`
+- Descarga los cambios del repositorio remoto hacia tu entorno local.
+- Ejemplo:
+  - `git pull origin rama`
+
+### `git push`
+- Sube tus cambios locales al servidor.
+- Si es la primera vez que subes una rama nueva, usa `-u` para establecer el seguimiento remoto.
+- Ejemplo:
+  - `git push -u origin rama`
+
+---
+
+## 2. Flujo de trabajo tradicional sin PRs
+- Cuando el equipo integra cambios directamente desde la terminal, se suele seguir este proceso.
+
+### Preparacion
+- Posicionarse en la rama base:
+  - `git checkout develop`
+- Verificar actualizaciones:
+  - `git fetch`
+- Traer los ultimos cambios del equipo:
+  - `git pull origin develop`
+
+### Desarrollo
+- Crear y moverse a una nueva rama:
+  - `git checkout -b rama`
+- Si hubo cambios recientes en la base, fusionarlos primero:
+  - `git merge develop`
+- Trabajar en el codigo y subir la rama por primera vez:
+  - `git push -u origin rama`
+
+### Integracion final
+- Volver a la rama base:
+  - `git checkout develop`
+- Actualizar de nuevo con `fetch` y `pull`.
+- Integrar el trabajo forzando el historial de fusion:
+  - `git merge --no-ff rama`
+
+### Resolucion y limpieza
+- Si hay conflictos, resolverlos manualmente.
+- Guardar los cambios resueltos con:
+  - `git add .`
+  - `git commit`
+- Borrar la rama local de trabajo:
+  - `git branch -D rama`
+- Subir la rama base actualizada:
+  - `git push origin develop`
