@@ -110,3 +110,97 @@ Repositorio de apuntes sobre Git.
 - Si necesitas explicar mejor el cambio, usa `git commit` sin `-m`.
 - La primera linea sera el titulo del commit.
 - Desde la segunda linea podras agregar el contexto necesario.
+
+---
+
+# Diapositiva 3: GitHub, SSH y Sincronizacion Remota
+
+---
+
+## 1. Que es GitHub y en que se diferencia de Git?
+- **GitHub** es una plataforma en la nube y una red social para desarrolladores que permite alojar, gestionar y colaborar en proyectos de software.
+- **Git vs GitHub**:
+  - **Git** es la herramienta de control de versiones que crea los puntos de guardado locales.
+  - **GitHub** es el servidor donde esos cambios se almacenan y comparten con otros.
+  - GitHub utiliza Git, pero no son lo mismo.
+
+---
+
+## 2. Autenticacion: HTTPS vs SSH
+
+### HTTPS
+- Si usas HTTPS para clonar o interactuar con un repositorio, tendras que autenticarte con un token constantemente.
+- Esto puede resultar molesto y poco practico.
+
+### SSH
+- SSH configura una llave entre tu computadora y GitHub.
+- Te permite interactuar con el repositorio sin introducir credenciales cada vez.
+- Es la practica recomendada.
+
+---
+
+## 3. Configuracion paso a paso de la llave SSH
+- Para configurar tu llave SSH, ejecuta estos comandos en la terminal o en Git Bash en Windows.
+
+### Generar la llave
+- `ssh-keygen -t ed25519 -C "tu-correo@email.com"`
+
+### Ver la llave publica
+- `cat ~/.ssh/id_ed25519.pub`
+- Debes copiar el texto que este comando devuelva.
+
+### Vincular la llave en GitHub
+- Ve a `Settings > SSH and GPG keys > New SSH key`.
+- Pega la llave copiada.
+- Asignale un nombre para identificar tu computadora.
+- Guarda la configuracion.
+
+### Verificar la conexion
+- `ssh -T git@github.com`
+- Este comando comprueba que la configuracion fue exitosa.
+
+---
+
+## 4. Crear, conectar y clonar repositorios
+
+### Crear un repositorio en GitHub
+- Ve a la pestana `Repositories`.
+- Haz clic en `New`.
+- Asignale un nombre.
+- Elige su visibilidad: publico o privado.
+- Presiona `Create Repository`.
+
+### Conectar tu repositorio local con GitHub
+- Si ya tienes un repositorio local con `git init` y al menos un commit, debes vincularlo al remoto con:
+  - `git remote add origin git@github.com:TuUser/TuRepo.git`
+- `origin` es el apodo local del servidor remoto.
+
+### Cambiar a la rama principal
+- `git branch -M main`
+
+### Subir los cambios
+- `git push -u origin main`
+
+### Clonar un repositorio existente
+- Para descargar el proyecto a tu computadora:
+  - `git clone "git@github.com:TuUser/TuRepo.git"`
+
+### Cambiar de HTTPS a SSH
+- Si clonaste con HTTPS por error, puedes cambiar la URL remota con:
+  - `git remote set-url origin "git@github.com:TuUser/TuRepo.git"`
+
+### Verificar el remoto configurado
+- Para ver a que repositorio esta conectado tu proyecto actual:
+  - `git remote`
+
+---
+
+## 5. Sincronizar cambios (Push y Pull)
+
+### Subir cambios (Push)
+- Para enviar tus commits desde tu entorno local hacia GitHub:
+  - `git push origin <rama>`
+
+### Bajar cambios (Pull)
+- Para traer actualizaciones y nuevos commits desde GitHub hacia tu entorno local:
+  - `git pull origin <rama>`
