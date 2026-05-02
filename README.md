@@ -1,15 +1,15 @@
 # Apuntes-GitHub
  Github note-taking repository
 
-# 📌 Diapositiva 1: Introducción y Configuraciones Básicas de GIT
+# Diapositiva 1: Introducción y Configuraciones Básicas de GIT
 
 ---
 
 ## 1. ¿Qué es GIT?
 - Es un **Sistema de Control de Versiones Distribuido (VCS)**.
 - Permite:
-  - Guardar versiones de archivos 📂
-  - Mantener historial de cambios ⏳
+  - Guardar versiones de archivos 
+  - Mantener historial de cambios 
   - Trabajar de forma local sin depender de un servidor central
 
 ---
