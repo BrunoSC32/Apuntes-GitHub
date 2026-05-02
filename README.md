@@ -302,3 +302,93 @@ Repositorio de apuntes sobre Git.
   - Si vas a experimentar en serio, crea una rama cuanto antes.
 - **Usalo para aprender**:
   - Revisar commits antiguos en proyectos grandes ayuda a entender como fueron construidos paso a paso.
+
+---
+
+# Diapositiva 5: Ramas y Gitflow Basico
+
+---
+
+## 1. Que son las ramas?
+- Son una de las principales utilidades de Git para llevar un mejor control del proyecto.
+- Una rama es una bifurcacion del estado del codigo.
+- Crea un camino paralelo para la evolucion del codigo sin afectar otras versiones.
+
+---
+
+## 2. Comandos para gestionar ramas (`git branch`)
+- Listar las ramas disponibles y ver donde esta ubicado `HEAD`:
+  - `git branch`
+- Crear una nueva rama desde la posicion actual:
+  - `git branch <rama>`
+- Borrar una rama:
+  - `git branch -D <rama>`
+
+---
+
+## 3. Navegacion entre ramas (`git checkout` y `git switch`)
+
+### Con `git checkout`
+- Cambiar a una rama existente:
+  - `git checkout <rama>`
+- Crear una rama nueva y cambiarse a ella:
+  - `git checkout -b <rama>`
+- Importante:
+  - No debes tener cambios sin guardar en tu directorio de trabajo o en stage.
+
+### `git checkout` vs `git switch`
+- Originalmente, `git checkout` servia para varias tareas:
+  - Cambiar ramas.
+  - Viajar en el historial.
+  - Restaurar archivos.
+- Eso lo hacia riesgoso porque podia dejarte accidentalmente en `Detached HEAD`.
+- En 2019, con Git 2.23, se introdujo `git switch`.
+- `git switch` esta enfocado unicamente en ramas, lo que hace el flujo mas seguro e intuitivo.
+
+---
+
+## 4. Que es Gitflow?
+- Es un flujo de trabajo que define reglas y convenciones para organizar ramas.
+- Ayuda a trabajar de forma ordenada y visualmente clara.
+- Es especialmente util para trabajo en equipo.
+
+---
+
+## 5. Las ramas principales en Gitflow
+
+### `main` o `master`
+- Contiene el codigo estable y en produccion.
+- Es la rama principal del proyecto.
+
+### `develop`
+- Es la rama de pre-produccion.
+- Aqui se integran las nuevas caracteristicas antes de pasar a produccion.
+- Es una rama permanente y no se borra.
+
+---
+
+## 6. Las ramas de apoyo en Gitflow
+- Son ramas temporales donde los desarrolladores trabajan en el dia a dia.
+
+### `feature`
+- Uso:
+  - Para desarrollar una nueva funcionalidad o una tarea especifica.
+  - Ejemplo: `feature/add-search-bar`
+- Flujo:
+  - Nacen desde `develop`.
+  - Al terminar, se fusionan de vuelta en `develop`.
+
+### `release`
+- Uso:
+  - Para preparar una nueva version antes de salir a produccion.
+  - Se usan para pruebas y ajustes finales.
+- Flujo:
+  - Nacen desde `develop`.
+  - Se fusionan en `main` y tambien en `develop`.
+
+### `hotfix`
+- Uso:
+  - Para corregir errores criticos que ya estan en produccion.
+- Flujo:
+  - Nacen desde `main`.
+  - Luego se fusionan tanto en `main` como en `develop`.
