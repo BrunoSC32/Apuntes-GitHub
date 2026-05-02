@@ -458,3 +458,75 @@ Repositorio de apuntes sobre Git.
   - `git branch -D rama`
 - Subir la rama base actualizada:
   - `git push origin develop`
+
+---
+
+# Diapositiva 7: Pull Requests y Colaboracion Open Source
+
+---
+
+## 1. Que son los Pull Requests (PRs)?
+- Son solicitudes creadas en GitHub para que el equipo revise el codigo que intentas fusionar con la base del proyecto.
+- Representan una forma profesional de trabajar con Git y GitHub.
+
+### Por que usarlos?
+- Limitan la colaboracion directa por motivos de seguridad.
+- Evitan que cualquier persona fusione codigo erroneo o malicioso por accidente.
+- Obligan al equipo a debatir, opinar o rechazar cambios antes de que lleguen a produccion.
+- Para que esto funcione bien, los repositorios deben protegerse con configuraciones en GitHub que exijan revision.
+
+---
+
+## 2. Flujo de trabajo en equipo con PRs
+- El inicio del flujo es similar al trabajo sin PRs:
+  - Actualizas `develop`.
+  - Creas tu rama.
+  - Trabajas en ella.
+  - Haces tu primer `push`.
+
+### Diferencia principal
+- En lugar de integrar tu codigo directamente en `develop`, vuelves a tu rama de trabajo.
+- Luego sincronizas la base con:
+  - `git merge develop`
+- Si aparecen conflictos, los resuelves localmente.
+- Finalmente haces un ultimo push:
+  - `git push origin rama`
+
+### Paso final
+- Despues vas a la interfaz web de GitHub.
+- Abres el Pull Request.
+- Esperas la revision y aprobacion del equipo.
+
+---
+
+## 3. Contribuciones Open Source sin ser invitado
+- Si quieres colaborar en un proyecto publico ajeno usando la terminal, este es el flujo comun.
+
+### Paso 1: Hacer un fork y clonar
+- Haz un **Fork** desde la pagina de GitHub del proyecto original.
+- Luego clona tu copia en tu computadora:
+  - `git clone <url>`
+
+### Paso 2: Entrar al proyecto y crear una rama
+- Entra a la carpeta del proyecto:
+  - `cd <proyecto>`
+- Crea tu rama de trabajo:
+  - `git checkout -b docs/ejemplo-video`
+- No debes trabajar directamente en `main`.
+
+### Paso 3: Realizar cambios
+- Haz tus mejoras o correcciones en el editor de codigo.
+
+### Paso 4: Guardar cambios con commits semanticos
+- Prepara y guarda tus cambios:
+  - `git add .`
+  - `git commit -m "docs: agrega nota..."`
+
+### Paso 5: Subir tu rama al fork
+- Empuja tus cambios a tu repositorio remoto bifurcado:
+  - `git push -u origin <rama>`
+
+### Paso 6: Crear el Pull Request
+- Git suele devolverte un enlace en la terminal.
+- Abre ese enlace en GitHub y presiona `Create pull request`.
+- Asi envias tu propuesta a los duenios del proyecto original.
