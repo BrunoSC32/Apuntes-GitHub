@@ -30,7 +30,6 @@
 2. Seguir instalación recomendada.
 
 ### Verificación:
-```bash
 git --version
 
 # Apuntes - Diapositiva 2: Estados de Git, Commits y Buenas Prácticas
