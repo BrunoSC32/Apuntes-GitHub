@@ -204,3 +204,101 @@ Repositorio de apuntes sobre Git.
 ### Bajar cambios (Pull)
 - Para traer actualizaciones y nuevos commits desde GitHub hacia tu entorno local:
   - `git pull origin <rama>`
+
+---
+
+# Diapositiva 4: Git Remote, Multiples SSH y Checkout
+
+---
+
+## 1. Gestion de remotos con Git Remote
+- El comando `git remote` le indica a Git local a donde enviar o de donde traer informacion.
+- Permite gestionar las conexiones con repositorios remotos en la nube.
+
+### Comandos utiles
+- Mostrar las URLs configuradas actualmente:
+  - `git remote -v`
+- Vincular el repositorio local con un nuevo remoto:
+  - `git remote add <apodo> "url"`
+- Cambiar la URL de un remoto existente:
+  - `git remote set-url <apodo> "url"`
+
+---
+
+## 2. Multiples cuentas SSH
+- Si tienes mas de una cuenta de GitHub, por ejemplo personal y trabajo, necesitas una llave SSH para cada una.
+- Esto evita conflictos entre cuentas.
+
+### Pasos para configurarlas
+
+### Generar una nueva llave
+- Usa una ruta especifica con `-f`:
+  - `ssh-keygen -t ed25519 -C "micorreo@gmail.com" -f ~/.ssh/id_miname`
+
+### Crear un archivo config
+- Debes crear el archivo `config` dentro de la carpeta `.ssh`.
+- Alli defines:
+  - `Host`: apodo, por ejemplo `github-miname`
+  - `HostName`: normalmente `github.com`
+  - `User`: normalmente `git`
+  - `IdentityFile`: ruta de la llave privada
+
+### Verificar y clonar
+- Verifica la conexion con:
+  - `ssh -T git@github-miname`
+- Para clonar con esa cuenta, reemplaza `github.com` por tu apodo:
+  - `git clone git@github-miname:usuario/repo.git`
+
+---
+
+## 3. Configuraciones locales
+- Git tiene una jerarquia de configuraciones.
+- Las configuraciones locales tienen prioridad sobre las globales.
+
+### Uso de configuracion local
+- Para aplicar una configuracion solo al repositorio actual, usa `git config` sin el flag `--global`.
+- Ejemplo:
+  - `git config user.name "Mi nuevo Name"`
+
+---
+
+## 4. Viajes en el tiempo con Git Checkout
+- `git checkout` permite mover el `HEAD`, que es tu puntero actual, hacia otro commit o hacia otra rama.
+
+### Para que sirve
+- Inspeccionar codigo de un commit antiguo.
+- Restaurar archivos borrados.
+- Experimentar sin afectar la rama principal.
+- Cambiar de rama.
+
+### Como viajar
+- Para ir al pasado:
+  - `git checkout <hash_antiguo>`
+- Para volver al presente o a una rama:
+  - `git checkout <rama>`
+
+---
+
+## 5. El estado Detached HEAD
+- Normalmente, `HEAD` apunta a una rama movil.
+- Cuando viajas a un commit antiguo, entras en estado **Detached HEAD**.
+- Eso significa que `HEAD` ahora apunta a un commit fijo.
+
+### Que implica
+- Eres un espectador en ese punto de la historia.
+- Si haces cambios y luego sales de ese estado sin crear una rama, esos cambios pueden perderse.
+
+### Como conservar los cambios
+- Crea una rama desde ese punto:
+  - `git checkout -b rama_nueva`
+
+---
+
+## 6. Buenas practicas al viajar en el historial
+- **Limpia tu directorio**:
+  - Antes de viajar al pasado, haz commit de tus cambios actuales.
+- **Crea ramas rapido**:
+  - No trabajes mucho tiempo en `Detached HEAD`.
+  - Si vas a experimentar en serio, crea una rama cuanto antes.
+- **Usalo para aprender**:
+  - Revisar commits antiguos en proyectos grandes ayuda a entender como fueron construidos paso a paso.
